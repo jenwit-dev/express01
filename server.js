@@ -3,9 +3,9 @@ const express = require("express");
 const app = express();
 
 const todos = [
-  { id: 11, title: "HTML" },
-  { id: 22, title: "CSS" },
-  { id: 33, title: "JS" },
+  { id: 11, title: "Learn HTML" },
+  { id: 22, title: "Learn CSS" },
+  { id: 33, title: "Learn JS" },
 ];
 
 // const ids = todos.reduce((acc, obj) => {
@@ -14,6 +14,29 @@ const todos = [
 // }, []);
 
 // console.log(ids);
+
+app.get("/todos/search", (req, res) => {
+  // console.log(req.query);
+  const { keyword } = req.query;
+  console.log(keyword);
+  res.json(
+    todos.filter((item) => {
+      return item.title.toLowerCase().includes(keyword.toLowerCase());
+    })
+  );
+});
+
+app.get("/add/one/two", (req, res) => {
+  res.json({ msg: "Add only" });
+});
+
+app.get("/add/:x/:y", (req, res) => {
+  const { x, y } = req.params;
+  // console.log(req.params);
+  // console.log(req.params.x);
+  // console.log(typeof req.params.x);
+  res.json({ sum: +x + +y });
+});
 
 app.get("/", (req, res) => {
   res.json({ msg: "welcome" });
